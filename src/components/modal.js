@@ -31,4 +31,4 @@ function closeWithOverlay(evt) {
 
 }
 
-export { closePopup, openPopup };
+export { openPopup };
