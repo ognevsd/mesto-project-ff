@@ -1,32 +1,37 @@
 import '../pages/index.css';
-import { initialCards } from './cards.js';
+import { addCards } from './components/card.js';
+import { initialCards } from './components/cards.js';
+import { openPopup } from './components/modal.js';
 
-// @todo: Темплейт карточки
-const cardTemplate = document.querySelector('#card-template').content;
-// @todo: DOM узлы
-const cardList = document.querySelector('.places__list');
-// @todo: Функция создания карточки
-function addNewCard(cardName, cardPicture, pictureDescription, deleteCard) {
-  const newCard = cardTemplate.querySelector('.places__item').cloneNode(true);
-  newCard.querySelector('.card__title').textContent = cardName;
-  newCard.querySelector('.card__image').src = cardPicture;
-  newCard.querySelector('.card__image').alt = pictureDescription;
+// ElementsdeleteCard
+const editProfileBttn = document.querySelector('.profile__edit-button');
+const addNewCardBttn = document.querySelector('.profile__add-button');
+const palcesList = document.querySelector('.places__list');
 
-  const deleteButton = newCard.querySelector('.card__delete-button');
-  deleteButton.addEventListener('click', () => deleteCard(newCard));
+// Popups
+const editProfileForm = document.querySelector('.popup_type_edit');
+const addNewCardForm = document.querySelector('.popup_type_new-card');
+const imagePopup = document.querySelector('.popup_type_image');
 
-  return newCard;
-}
-// @todo: Функция удаления карточки
-function deleteCard(card) {
-  card.remove();
-}
-// @todo: Вывести карточки на страницу
-function addCards(cards) {
-  cards.forEach(card => {
-    const newCard = addNewCard(card.name, card.link, card.alt, deleteCard);
-    cardList.append(newCard);
-  })
-}
-
+// Adding initial cards
 addCards(initialCards);
+
+// Event listeners
+editProfileBttn.addEventListener('click', () => {
+  openPopup(editProfileForm);
+});
+
+addNewCardBttn.addEventListener('click', () => {
+  openPopup(addNewCardForm);
+})
+
+palcesList.addEventListener('click', (evt) => {
+  if (evt.target.classList.contains('card__image')) {
+    const popupImage = imagePopup.querySelector('.popup__image');
+    popupImage.src = evt.target.src;
+    popupImage.alt = evt.target.alt;
+    openPopup(imagePopup);
+  }
+})
+
+
