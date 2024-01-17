@@ -26,5 +26,5 @@ function addCards(cards) {
   })
 }
 
-export { addCards };
+export { addCards, addNewCard, deleteCard };
 
