@@ -7,12 +7,11 @@ import { openPopup } from './components/modal.js';
 // ElementsdeleteCard
 const editProfileBttn = document.querySelector('.profile__edit-button');
 const addNewCardBttn = document.querySelector('.profile__add-button');
-const palcesList = document.querySelector('.places__list');
 
 // Popups
 const editProfilePopup = document.querySelector('.popup_type_edit');
 const addNewCardPopup = document.querySelector('.popup_type_new-card');
-const imagePopup = document.querySelector('.popup_type_image');
+
 
 // Adding initial cards
 addCards(initialCards);
@@ -32,15 +31,6 @@ editProfileBttn.addEventListener('click', () => {
 
 addNewCardBttn.addEventListener('click', () => {
   openPopup(addNewCardPopup);
-})
-
-palcesList.addEventListener('click', (evt) => {
-  if (evt.target.classList.contains('card__image')) {
-    const popupImage = imagePopup.querySelector('.popup__image');
-    popupImage.src = evt.target.src;
-    popupImage.alt = evt.target.alt;
-    openPopup(imagePopup);
-  }
 })
 
 // Working with forms
