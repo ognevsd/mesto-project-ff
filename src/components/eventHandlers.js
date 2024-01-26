@@ -8,16 +8,17 @@ const profileDescription = document.querySelector('.profile__description');
 const editProfilePopup = document.querySelector('.popup_type_edit');
 const nameInput = document.querySelector('.popup__input_type_name');
 const jobInput = document.querySelector('.popup__input_type_description');
-const nameInputValue = nameInput.value;
-const jobInputValue = jobInput.value;
+
 
 function handleFormEditProfile(evt) {
   evt.preventDefault();
 
+  const nameInputValue = nameInput.value;
+  const jobInputValue = jobInput.value;
 
   profileTitle.textContent = nameInputValue;
   profileDescription.textContent = jobInputValue;
-  closePopup(editProfilePopup);
+  closePopup();
 }
 
 // const addNewCardPopup = document.querySelector('.popup_type_new-card');
