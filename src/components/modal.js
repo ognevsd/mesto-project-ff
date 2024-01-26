@@ -11,10 +11,11 @@ function openPopup(element) {
 }
 
 function closePopup() {
-  const currentPopup = document.querySelector('.popup_is-opened');
-  currentPopup.classList.remove("popup_is-opened");
-  document.removeEventListener('keydown', closeWithEscBttn);
-  currentPopup.removeEventListener('click', closeWithOverlay);
+  allPopups.forEach(currentPopup => {
+    currentPopup.classList.remove("popup_is-opened");
+    document.removeEventListener('keydown', closeWithEscBttn);
+    currentPopup.removeEventListener('click', closeWithOverlay);
+  })
 }
 
 function closeWithEscBttn(evt) {

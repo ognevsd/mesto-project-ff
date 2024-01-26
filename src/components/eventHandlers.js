@@ -1,4 +1,4 @@
-import { cardList, openImage, popupAddNewCard } from '../index.js';
+import { cardList, openImage } from '../index.js';
 import { createNewCard, deleteCard, toggleLike } from './card.js';
 import { closePopup } from './modal.js';
 
@@ -30,7 +30,7 @@ function handleAddPlace(evt) {
   const newCard = createNewCard(placeName.value, placePicture.value, '', deleteCard, toggleLike, openImage);
   cardList.prepend(newCard);
 
-  closePopup(popupAddNewCard);
+  closePopup();
   placeName.value = '';
   placePicture.value = '';
 
