@@ -1,4 +1,4 @@
-import { cardList, openImage } from '../index.js';
+import { cardList, openImage, popupAddNewCard, popupEditProfile } from '../index.js';
 import { createNewCard, deleteCard, toggleLike } from './card.js';
 import { closePopup } from './modal.js';
 
@@ -17,7 +17,7 @@ function handleFormEditProfile(evt) {
 
   profileTitle.textContent = nameInputValue;
   profileDescription.textContent = jobInputValue;
-  closePopup();
+  closePopup(popupEditProfile);
 }
 
 // const addNewCardPopup = document.querySelector('.popup_type_new-card');
@@ -30,7 +30,7 @@ function handleAddPlace(evt) {
   const newCard = createNewCard(placeName.value, placePicture.value, '', deleteCard, toggleLike, openImage);
   cardList.prepend(newCard);
 
-  closePopup();
+  closePopup(popupAddNewCard);
   placeName.value = '';
   placePicture.value = '';
 

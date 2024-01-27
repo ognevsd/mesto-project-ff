@@ -23,6 +23,7 @@ function createNewCard(cardName, cardPicture, pictureDescription, deleteCard, to
 function deleteCard(card) {
   card.remove();
 }
+
 function toggleLike(likeBttn) {
   likeBttn.classList.toggle('card__like-button_is-active');
 }

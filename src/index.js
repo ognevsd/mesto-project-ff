@@ -2,7 +2,7 @@ import '../pages/index.css';
 import { createNewCard, deleteCard, toggleLike } from './components/card.js';
 import { initialCards } from './components/cards.js';
 import { handleAddPlace, handleFormEditProfile } from './components/eventHandlers.js';
-import { closePopup, openPopup } from './components/modal.js';
+import { closeWithButton, openPopup } from './components/modal.js';
 
 
 // Buttons
@@ -33,7 +33,6 @@ const cardList = document.querySelector('.places__list');
 
 // General functions
 function openImage(imageSrc, imageAlt, cardName) {
-
   imageInPopupImage.src = imageSrc;
   imageInPopupImage.alt = imageAlt;
   textInPopupImage.textContent = cardName;
@@ -49,7 +48,7 @@ function addCards(cards) {
 }
 
 buttonClosePopup.forEach(bttn => {
-  bttn.addEventListener('click', closePopup)
+  bttn.addEventListener('click', closeWithButton)
 })
 
 // Adding initial cards
@@ -70,5 +69,5 @@ buttonOpenPopupNewCard.addEventListener('click', () => {
 formEditProfile.addEventListener('submit', handleFormEditProfile);
 formNewCard.addEventListener('submit', handleAddPlace)
 
-export { cardList, openImage, popupAddNewCard };
+export { cardList, openImage, popupAddNewCard, popupEditProfile };
 
