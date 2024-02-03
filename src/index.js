@@ -3,6 +3,7 @@ import { createNewCard, deleteCard, toggleLike } from './components/card.js';
 import { initialCards } from './components/cards.js';
 import { handleAddPlace, handleFormEditProfile } from './components/eventHandlers.js';
 import { closeWithButton, openPopup } from './components/modal.js';
+import { enableValidation } from './components/validation.js';
 
 
 // Buttons
@@ -30,6 +31,7 @@ const profileDescription = document.querySelector('.profile__description');
 // Other elements
 const cardList = document.querySelector('.places__list');
 
+enableValidation();
 
 // General functions
 function openImage(imageSrc, imageAlt, cardName) {
