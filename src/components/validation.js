@@ -1,8 +1,3 @@
-const validationConfig = {
-  formSelector: '.popup__form',
-  inputError: 'popup__input_type_error',
-}
-
 function isValid(formElement, inputElement) {
   if (!inputElement.validity.valid) {
     showInputError(formElement, inputElement, inputElement.validationMessage)
