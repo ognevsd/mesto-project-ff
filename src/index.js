@@ -3,7 +3,7 @@ import { createNewCard, deleteCard, toggleLike } from './components/card.js';
 import { initialCards } from './components/cards.js';
 import { handleAddPlace, handleFormEditProfile } from './components/eventHandlers.js';
 import { closeWithButton, openPopup } from './components/modal.js';
-import { enableValidation } from './components/validation.js';
+import { clearValidation, enableValidation } from './components/validation.js';
 
 
 // Buttons
@@ -31,7 +31,20 @@ const profileDescription = document.querySelector('.profile__description');
 // Other elements
 const cardList = document.querySelector('.places__list');
 
-enableValidation();
+// Enabling validation
+const validationSettings = {
+  inputRegex: /^[a-zA-Zа-яА-Я\s-]+$/,
+  inputsToValidate: ['profile-name-input', 'profile-description-input', 'new-place-name-input'],
+  customErrorMessage: 'Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы',
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button-disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible',
+}
+
+enableValidation(validationSettings);
 
 // General functions
 function openImage(imageSrc, imageAlt, cardName) {
@@ -58,12 +71,14 @@ addCards(initialCards);
 
 // Event listeners
 buttonOpenPopupProfile.addEventListener('click', () => {
+  clearValidation(formEditProfile, validationSettings);
   formEditProfile.elements.name.value = profileTitle.textContent;
   formEditProfile.elements.description.value = profileDescription.textContent;
   openPopup(popupEditProfile);
 });
 
 buttonOpenPopupNewCard.addEventListener('click', () => {
+  clearValidation(formNewCard, validationSettings);
   openPopup(popupAddNewCard);
 })
 
@@ -71,5 +86,5 @@ buttonOpenPopupNewCard.addEventListener('click', () => {
 formEditProfile.addEventListener('submit', handleFormEditProfile);
 formNewCard.addEventListener('submit', handleAddPlace)
 
-export { cardList, openImage, popupAddNewCard, popupEditProfile };
+export { cardList, formEditProfile, formNewCard, openImage, popupAddNewCard, popupEditProfile, validationSettings };
 
