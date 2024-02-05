@@ -6,10 +6,41 @@ const apiConfig = {
   }
 }
 
-function testApiCall() {
-  fetch(`${apiConfig.url}/users/me`, { headers: apiConfig.headers })
-    .then(res => res.json())
+function requestData(endpoint, config) {
+  return fetch(`${apiConfig.url}${endpoint}`, config)
     .then((res) => {
-      console.log(res);
+      if (res.ok) {
+        return res.json()
+      }
+      return Promise.reject(`Что-то пошло не так: ${res.status}`);
     })
 }
+
+function requestUserInfo() {
+  const config = {
+    headers: apiConfig.headers
+  }
+  return requestData('/users/me', config)
+}
+
+function requestCards() {
+  const config = {
+    headers: apiConfig.headers
+  }
+  return requestData('/cards', config)
+}
+
+function editProfileInfo(newName, newDescription) {
+  const config = {
+    method: 'PATCH',
+    headers: apiConfig.headers,
+    body: JSON.stringify({
+      name: newName,
+      about: newDescription
+    })
+  }
+  return requestData('/users/me', config)
+}
+
+export { editProfileInfo, requestCards, requestUserInfo };
+

@@ -1,6 +1,6 @@
 import '../pages/index.css';
+import { requestCards, requestUserInfo } from './components/api.js';
 import { createNewCard, deleteCard, toggleLike } from './components/card.js';
-import { initialCards } from './components/cards.js';
 import { handleAddPlace, handleFormEditProfile } from './components/eventHandlers.js';
 import { closeWithButton, openPopup } from './components/modal.js';
 import { clearValidation, enableValidation } from './components/validation.js';
@@ -27,9 +27,22 @@ const formNewCard = document.querySelector('.popup__form[name="new-place"]');
 // User data
 const profileTitle = document.querySelector('.profile__title');
 const profileDescription = document.querySelector('.profile__description');
+const profileAvatar = document.querySelector('.profile__image');
+
 
 // Other elements
 const cardList = document.querySelector('.places__list');
+
+// Rendering initial data
+Promise.all([requestUserInfo(), requestCards()])
+  .then(([userInfo, cards]) => {
+    profileTitle.textContent = userInfo.name;
+    profileDescription.textContent = userInfo.about;
+    profileAvatar.style.backgroundImage = `url(${userInfo.avatar})`;
+    addCards(cards);
+  })
+  .catch(err => console.error(err))
+
 
 // Enabling validation
 const validationSettings = {
@@ -65,9 +78,6 @@ function addCards(cards) {
 buttonClosePopup.forEach(bttn => {
   bttn.addEventListener('click', closeWithButton)
 })
-
-// Adding initial cards
-addCards(initialCards);
 
 // Event listeners
 buttonOpenPopupProfile.addEventListener('click', () => {

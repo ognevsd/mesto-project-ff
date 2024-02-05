@@ -1,4 +1,5 @@
 import { cardList, formEditProfile, formNewCard, openImage, popupAddNewCard, popupEditProfile, validationSettings } from '../index.js';
+import { editProfileInfo } from './api.js';
 import { createNewCard, deleteCard, toggleLike } from './card.js';
 import { closePopup } from './modal.js';
 import { clearValidation } from './validation.js';
@@ -15,11 +16,15 @@ function handleFormEditProfile(evt) {
 
   const nameInputValue = nameInput.value;
   const jobInputValue = jobInput.value;
+  editProfileInfo(nameInputValue, jobInputValue)
+    .then((res) => {
+      profileTitle.textContent = res.name;
+      profileDescription.textContent = res.about;
+      closePopup(popupEditProfile);
+      clearValidation(formEditProfile, validationSettings);
+    })
+    .catch(err => console.error(err))
 
-  profileTitle.textContent = nameInputValue;
-  profileDescription.textContent = jobInputValue;
-  closePopup(popupEditProfile);
-  clearValidation(formEditProfile, validationSettings);
 }
 
 // const addNewCardPopup = document.querySelector('.popup_type_new-card');
