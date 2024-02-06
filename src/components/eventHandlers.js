@@ -1,5 +1,5 @@
 import { cardList, formEditProfile, formNewCard, openImage, popupAddNewCard, popupEditProfile, validationSettings } from '../index.js';
-import { addNewCard, editProfileInfo } from './api.js';
+import { addLike, addNewCard, editProfileInfo, removeLike } from './api.js';
 import { createNewCard, deleteCard, toggleLike } from './card.js';
 import { closePopup } from './modal.js';
 import { clearValidation } from './validation.js';
@@ -36,7 +36,7 @@ function handleAddPlace(evt) {
 
   addNewCard(placeName.value, placePicture.value)
     .then((res) => {
-      const newCard = createNewCard(res, deleteCard, toggleLike, openImage, res.owner._id);
+      const newCard = createNewCard(res, deleteCard, handleLike, openImage, res.owner._id);
       cardList.prepend(newCard);
       closePopup(popupAddNewCard);
       placeName.value = '';
@@ -46,4 +46,21 @@ function handleAddPlace(evt) {
     .catch(err => console.error(err))
 }
 
-export { handleAddPlace, handleFormEditProfile };
+function handleLike(likeElement, cardId) {
+  const hasLike = likeElement.querySelector('.card__like-button').classList.contains('card__like-button_is-active');
+  if (hasLike) {
+    removeLike(cardId)
+      .then((res) => {
+        toggleLike(likeElement, res.likes.length)
+      })
+      .catch(err => console.error(err))
+  } else {
+    addLike(cardId)
+      .then((res) => {
+        toggleLike(likeElement, res.likes.length)
+      })
+      .catch(err => console.error(err))
+  }
+}
+
+export { handleAddPlace, handleFormEditProfile, handleLike };

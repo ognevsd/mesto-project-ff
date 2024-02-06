@@ -1,7 +1,7 @@
 import '../pages/index.css';
 import { requestCards, requestUserInfo } from './components/api.js';
-import { createNewCard, deleteCard, toggleLike } from './components/card.js';
-import { handleAddPlace, handleFormEditProfile } from './components/eventHandlers.js';
+import { createNewCard, deleteCard } from './components/card.js';
+import { handleAddPlace, handleFormEditProfile, handleLike } from './components/eventHandlers.js';
 import { closeWithButton, openPopup } from './components/modal.js';
 import { clearValidation, enableValidation } from './components/validation.js';
 
@@ -72,7 +72,7 @@ function openImage(imageSrc, imageAlt, cardName) {
 // @todo: Вывести карточки на страницу
 function addCards(cards, userId) {
   cards.forEach(card => {
-    const newCard = createNewCard(card, deleteCard, toggleLike, openImage, userId);
+    const newCard = createNewCard(card, deleteCard, handleLike, openImage, userId);
     cardList.append(newCard);
   })
 }

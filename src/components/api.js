@@ -62,5 +62,21 @@ function deleteCardFromServer(cardId) {
   return requestData(`/cards/${cardId}`, config)
 }
 
-export { addNewCard, deleteCardFromServer, editProfileInfo, requestCards, requestUserInfo };
+function addLike(cardId) {
+  const config = {
+    method: 'PUT',
+    headers: apiConfig.headers
+  }
+  return requestData(`/cards/likes/${cardId}`, config)
+}
+
+function removeLike(cardId) {
+  const config = {
+    method: 'DELETE',
+    headers: apiConfig.headers
+  }
+  return requestData(`/cards/likes/${cardId}`, config)
+}
+
+export { addLike, addNewCard, deleteCardFromServer, editProfileInfo, removeLike, requestCards, requestUserInfo };
 
