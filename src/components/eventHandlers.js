@@ -1,5 +1,5 @@
 import { cardList, formEditProfile, formNewCard, openImage, popupAddNewCard, popupEditProfile, validationSettings } from '../index.js';
-import { editProfileInfo, addNewCard } from './api.js';
+import { addNewCard, editProfileInfo } from './api.js';
 import { createNewCard, deleteCard, toggleLike } from './card.js';
 import { closePopup } from './modal.js';
 import { clearValidation } from './validation.js';
@@ -36,7 +36,7 @@ function handleAddPlace(evt) {
 
   addNewCard(placeName.value, placePicture.value)
     .then((res) => {
-      const newCard = createNewCard(res.name, res.link, '', deleteCard, toggleLike, openImage);
+      const newCard = createNewCard(res, deleteCard, toggleLike, openImage, res.owner._id);
       cardList.prepend(newCard);
       closePopup(popupAddNewCard);
       placeName.value = '';

@@ -54,5 +54,13 @@ function addNewCard(cardName, cardLink) {
   return requestData('/cards', config)
 }
 
-export { addNewCard, editProfileInfo, requestCards, requestUserInfo };
+function deleteCardFromServer(cardId) {
+  const config = {
+    method: 'DELETE',
+    headers: apiConfig.headers
+  }
+  return requestData(`/cards/${cardId}`, config)
+}
+
+export { addNewCard, deleteCardFromServer, editProfileInfo, requestCards, requestUserInfo };
 

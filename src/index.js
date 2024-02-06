@@ -28,6 +28,7 @@ const formNewCard = document.querySelector('.popup__form[name="new-place"]');
 const profileTitle = document.querySelector('.profile__title');
 const profileDescription = document.querySelector('.profile__description');
 const profileAvatar = document.querySelector('.profile__image');
+let userId = '';
 
 
 // Other elements
@@ -39,7 +40,8 @@ Promise.all([requestUserInfo(), requestCards()])
     profileTitle.textContent = userInfo.name;
     profileDescription.textContent = userInfo.about;
     profileAvatar.style.backgroundImage = `url(${userInfo.avatar})`;
-    addCards(cards);
+    userId = userInfo._id;
+    addCards(cards, userId);
   })
   .catch(err => console.error(err))
 
@@ -68,9 +70,9 @@ function openImage(imageSrc, imageAlt, cardName) {
 }
 
 // @todo: Вывести карточки на страницу
-function addCards(cards) {
+function addCards(cards, userId) {
   cards.forEach(card => {
-    const newCard = createNewCard(card.name, card.link, card.alt, deleteCard, toggleLike, openImage);
+    const newCard = createNewCard(card, deleteCard, toggleLike, openImage, userId);
     cardList.append(newCard);
   })
 }
