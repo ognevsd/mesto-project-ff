@@ -42,5 +42,17 @@ function editProfileInfo(newName, newDescription) {
   return requestData('/users/me', config)
 }
 
-export { editProfileInfo, requestCards, requestUserInfo };
+function addNewCard(cardName, cardLink) {
+  const config = {
+    method: 'POST',
+    headers: apiConfig.headers,
+    body: JSON.stringify({
+      name: cardName,
+      link: cardLink
+    })
+  }
+  return requestData('/cards', config)
+}
+
+export { addNewCard, editProfileInfo, requestCards, requestUserInfo };
 

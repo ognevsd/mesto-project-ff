@@ -1,5 +1,5 @@
 import { cardList, formEditProfile, formNewCard, openImage, popupAddNewCard, popupEditProfile, validationSettings } from '../index.js';
-import { editProfileInfo } from './api.js';
+import { editProfileInfo, addNewCard } from './api.js';
 import { createNewCard, deleteCard, toggleLike } from './card.js';
 import { closePopup } from './modal.js';
 import { clearValidation } from './validation.js';
@@ -34,14 +34,16 @@ const placePicture = document.querySelector('.popup__input_type_url');
 function handleAddPlace(evt) {
   evt.preventDefault();
 
-  const newCard = createNewCard(placeName.value, placePicture.value, '', deleteCard, toggleLike, openImage);
-  cardList.prepend(newCard);
-
-  closePopup(popupAddNewCard);
-  placeName.value = '';
-  placePicture.value = '';
-  clearValidation(formNewCard, validationSettings);
-
+  addNewCard(placeName.value, placePicture.value)
+    .then((res) => {
+      const newCard = createNewCard(res.name, res.link, '', deleteCard, toggleLike, openImage);
+      cardList.prepend(newCard);
+      closePopup(popupAddNewCard);
+      placeName.value = '';
+      placePicture.value = '';
+      clearValidation(formNewCard, validationSettings);
+    })
+    .catch(err => console.error(err))
 }
 
 export { handleAddPlace, handleFormEditProfile };
