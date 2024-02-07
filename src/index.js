@@ -114,6 +114,10 @@ export {
   formEditProfileImage,
   formNewCard,
   openImage,
-  popupAddNewCard, popupEditAvatar, popupEditProfile, profileAvatar, validationSettings
+  popupAddNewCard,
+  popupEditAvatar,
+  popupEditProfile,
+  profileAvatar,
+  validationSettings
 };
 
