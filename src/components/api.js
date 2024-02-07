@@ -78,5 +78,16 @@ function removeLike(cardId) {
   return requestData(`/cards/likes/${cardId}`, config)
 }
 
-export { addLike, addNewCard, deleteCardFromServer, editProfileInfo, removeLike, requestCards, requestUserInfo };
+function updateAvatar(newAvatar) {
+  const config = {
+    method: 'PATCH',
+    headers: apiConfig.headers,
+    body: JSON.stringify({
+      avatar: newAvatar
+    })
+  }
+  return requestData('/users/me/avatar', config)
+}
+
+export { addLike, addNewCard, deleteCardFromServer, editProfileInfo, removeLike, requestCards, requestUserInfo, updateAvatar };
 

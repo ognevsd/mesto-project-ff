@@ -1,7 +1,7 @@
 import '../pages/index.css';
 import { requestCards, requestUserInfo } from './components/api.js';
 import { createNewCard, deleteCard } from './components/card.js';
-import { handleAddPlace, handleFormEditProfile, handleLike } from './components/eventHandlers.js';
+import { handleAddPlace, handleAvatarUpdate, handleFormEditProfile, handleLike } from './components/eventHandlers.js';
 import { closeWithButton, openPopup } from './components/modal.js';
 import { clearValidation, enableValidation } from './components/validation.js';
 
@@ -9,20 +9,23 @@ import { clearValidation, enableValidation } from './components/validation.js';
 // Buttons
 const buttonOpenPopupProfile = document.querySelector('.profile__edit-button');
 const buttonOpenPopupNewCard = document.querySelector('.profile__add-button');
+const buttonOpenEditImagePopup = document.querySelector('.profile__image-edit');
 const buttonClosePopup = document.querySelectorAll('.popup__close');
 
 // Popups
 const popupEditProfile = document.querySelector('.popup_type_edit');
 const popupAddNewCard = document.querySelector('.popup_type_new-card');
 const popupImage = document.querySelector('.popup_type_image');
+const popupEditAvatar = document.querySelector('.popup_type_edit-avatar')
 
 // Popup elements
 const imageInPopupImage = popupImage.querySelector('.popup__image');
-const textInPopupImage = popupImage.querySelector('.popup__caption')
+const textInPopupImage = popupImage.querySelector('.popup__caption');
 
 // Forms
 const formEditProfile = document.forms['edit-profile'];
 const formNewCard = document.querySelector('.popup__form[name="new-place"]');
+const formEditProfileImage = document.forms['edit-avatar'];
 
 // User data
 const profileTitle = document.querySelector('.profile__title');
@@ -94,9 +97,23 @@ buttonOpenPopupNewCard.addEventListener('click', () => {
   openPopup(popupAddNewCard);
 })
 
+buttonOpenEditImagePopup.addEventListener('click', () => {
+  clearValidation(formEditProfileImage, validationSettings);
+  openPopup(popupEditAvatar);
+})
+
+
 // Working with forms
 formEditProfile.addEventListener('submit', handleFormEditProfile);
-formNewCard.addEventListener('submit', handleAddPlace)
+formNewCard.addEventListener('submit', handleAddPlace);
+formEditProfileImage.addEventListener('submit', handleAvatarUpdate);
 
-export { cardList, formEditProfile, formNewCard, openImage, popupAddNewCard, popupEditProfile, validationSettings };
+export {
+  cardList,
+  formEditProfile,
+  formEditProfileImage,
+  formNewCard,
+  openImage,
+  popupAddNewCard, popupEditAvatar, popupEditProfile, profileAvatar, validationSettings
+};
 

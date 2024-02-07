@@ -1,5 +1,16 @@
-import { cardList, formEditProfile, formNewCard, openImage, popupAddNewCard, popupEditProfile, validationSettings } from '../index.js';
-import { addLike, addNewCard, editProfileInfo, removeLike } from './api.js';
+import {
+  cardList,
+  formEditProfile,
+  formEditProfileImage,
+  formNewCard,
+  openImage,
+  popupAddNewCard,
+  popupEditAvatar,
+  popupEditProfile,
+  profileAvatar,
+  validationSettings
+} from '../index.js';
+import { addLike, addNewCard, editProfileInfo, removeLike, updateAvatar } from './api.js';
 import { createNewCard, deleteCard, toggleLike } from './card.js';
 import { closePopup } from './modal.js';
 import { clearValidation } from './validation.js';
@@ -9,6 +20,7 @@ const profileTitle = document.querySelector('.profile__title');
 const profileDescription = document.querySelector('.profile__description');
 const nameInput = document.querySelector('.popup__input_type_name');
 const jobInput = document.querySelector('.popup__input_type_description');
+const newAvatarInput = document.querySelector('#edit-avatar-url-input');
 
 
 function handleFormEditProfile(evt) {
@@ -28,8 +40,8 @@ function handleFormEditProfile(evt) {
 }
 
 // const addNewCardPopup = document.querySelector('.popup_type_new-card');
-const placeName = document.querySelector('.popup__input_type_card-name');
-const placePicture = document.querySelector('.popup__input_type_url');
+const placeName = document.querySelector('#new-place-name-input');
+const placePicture = document.querySelector('#new-place-url-input');
 
 function handleAddPlace(evt) {
   evt.preventDefault();
@@ -63,4 +75,18 @@ function handleLike(likeElement, cardId) {
   }
 }
 
-export { handleAddPlace, handleFormEditProfile, handleLike };
+function handleAvatarUpdate(evt) {
+  evt.preventDefault()
+
+  updateAvatar(newAvatarInput.value)
+    .then((res) => {
+      profileAvatar.style.backgroundImage = `url(${newAvatarInput.value})`;
+      closePopup(popupEditAvatar);
+      newAvatarInput.value = '';
+      clearValidation(formEditProfileImage, validationSettings);
+    })
+    .catch(err => console.error(err))
+}
+
+export { handleAddPlace, handleAvatarUpdate, handleFormEditProfile, handleLike };
+
