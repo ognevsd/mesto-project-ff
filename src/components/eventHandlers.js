@@ -28,6 +28,10 @@ function handleFormEditProfile(evt) {
 
   const nameInputValue = nameInput.value;
   const jobInputValue = jobInput.value;
+
+  const submitButton = evt.submitter;
+  submitButton.textContent = 'Сохранение...';
+
   editProfileInfo(nameInputValue, jobInputValue)
     .then((res) => {
       profileTitle.textContent = res.name;
@@ -36,6 +40,9 @@ function handleFormEditProfile(evt) {
       clearValidation(formEditProfile, validationSettings);
     })
     .catch(err => console.error(err))
+    .finally(() => {
+      submitButton.textContent = 'Сохранить'
+    })
 
 }
 
@@ -45,6 +52,9 @@ const placePicture = document.querySelector('#new-place-url-input');
 
 function handleAddPlace(evt) {
   evt.preventDefault();
+
+  const submitButton = evt.submitter;
+  submitButton.textContent = 'Сохранение...';
 
   addNewCard(placeName.value, placePicture.value)
     .then((res) => {
@@ -56,6 +66,9 @@ function handleAddPlace(evt) {
       clearValidation(formNewCard, validationSettings);
     })
     .catch(err => console.error(err))
+    .finally(() => {
+      submitButton.textContent = 'Сохранить'
+    })
 }
 
 function handleLike(likeElement, cardId) {
@@ -78,6 +91,9 @@ function handleLike(likeElement, cardId) {
 function handleAvatarUpdate(evt) {
   evt.preventDefault()
 
+  const submitButton = evt.submitter;
+  submitButton.textContent = 'Сохранение...';
+
   updateAvatar(newAvatarInput.value)
     .then((res) => {
       profileAvatar.style.backgroundImage = `url(${newAvatarInput.value})`;
@@ -86,6 +102,9 @@ function handleAvatarUpdate(evt) {
       clearValidation(formEditProfileImage, validationSettings);
     })
     .catch(err => console.error(err))
+    .finally(() => {
+      submitButton.textContent = 'Сохранить'
+    })
 }
 
 export { handleAddPlace, handleAvatarUpdate, handleFormEditProfile, handleLike };
