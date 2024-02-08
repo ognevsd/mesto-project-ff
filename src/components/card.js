@@ -4,9 +4,13 @@ import { deleteCardFromServer } from "./api";
 const cardTemplate = document.querySelector('#card-template').content;
 // @todo: DOM узлы
 
+function getCardTemplate() {
+  return cardTemplate.querySelector('.places__item').cloneNode(true);
+}
+
 // @todo: Функция создания карточки
 function createNewCard(card, deleteCard, handleLike, openImage, currentUser) {
-  const newCard = cardTemplate.querySelector('.places__item').cloneNode(true);
+  const newCard = getCardTemplate();
   const deleteButton = newCard.querySelector('.card__delete-button');
   const likeElement = newCard.querySelector('.card__like-wrapper');
   const likeBttn = newCard.querySelector('.card__like-button');
@@ -30,7 +34,6 @@ function createNewCard(card, deleteCard, handleLike, openImage, currentUser) {
     deleteButton.classList.add('card__delete-button-hide');
   }
 
-
   likeBttn.addEventListener('click', () => handleLike(likeElement, card._id));
   cardImage.addEventListener('click', () => openImage(card.link, card.alt, card.name));
 
@@ -39,8 +42,8 @@ function createNewCard(card, deleteCard, handleLike, openImage, currentUser) {
 // @todo: Функция удаления карточки
 function deleteCard(card, cardId) {
   deleteCardFromServer(cardId)
+    .then(() => card.remove())
     .catch(err => console.error(err));
-  card.remove();
 }
 
 function toggleLike(likeElement, likes) {
@@ -51,4 +54,3 @@ function toggleLike(likeElement, likes) {
 }
 
 export { createNewCard, deleteCard, toggleLike };
-

@@ -90,4 +90,3 @@ function updateAvatar(newAvatar) {
 }
 
 export { addLike, addNewCard, deleteCardFromServer, editProfileInfo, removeLike, requestCards, requestUserInfo, updateAvatar };
-

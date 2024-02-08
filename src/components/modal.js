@@ -34,4 +34,3 @@ function closeWithOverlay(evt) {
 }
 
 export { closePopup, closeWithButton, openPopup };
-

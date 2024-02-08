@@ -84,4 +84,3 @@ function clearValidation(formElement, validationSettings) {
 }
 
 export { clearValidation, enableValidation };
-
